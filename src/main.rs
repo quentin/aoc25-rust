@@ -12,7 +12,7 @@ fn solve_day(day: u8) -> SolutionPair {
     let input = std::fs::read_to_string(format!("./input/day{:0>2}.txt", day)).unwrap();
     match day {
         1 => day01::solve(input),
-        //2 => day02::solve(input),
+        2 => day02::solve(input),
         //3 => day03::solve(input),
         //4 => day04::solve(input),
         //5 => day05::solve(input),
@@ -72,6 +72,13 @@ mod tests {
         assert_eq!(
             solve_day(1),
             (Solution::from(1191u64), Solution::from(6858u64))
+        );
+        assert_eq!(
+            solve_day(2),
+            (
+                Solution::from(40398804950u64),
+                Solution::from(65794984339u64)
+            )
         );
     }
 }
