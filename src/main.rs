@@ -13,7 +13,7 @@ fn solve_day(day: u8) -> SolutionPair {
     match day {
         1 => day01::solve(input),
         2 => day02::solve(input),
-        //3 => day03::solve(input),
+        3 => day03::solve(input),
         //4 => day04::solve(input),
         //5 => day05::solve(input),
         //6 => day06::solve(input),
@@ -78,6 +78,13 @@ mod tests {
             (
                 Solution::from(40398804950u64),
                 Solution::from(65794984339u64)
+            )
+        );
+        assert_eq!(
+            solve_day(3),
+            (
+                Solution::from(17435u64),
+                Solution::from(172886048065379u64)
             )
         );
     }
