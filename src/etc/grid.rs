@@ -103,12 +103,7 @@ impl std::ops::Rem for Point {
 }
 
 /// Taxicab direction vectors:
-pub const TAXICAB_DIRECTIONS: [Point; 4] = [
-    Point(0, 1),
-    Point(1, 0),
-    Point(0, -1),
-    Point(-1, 0),
-];
+pub const TAXICAB_DIRECTIONS: [Point; 4] = [Point(0, 1), Point(1, 0), Point(0, -1), Point(-1, 0)];
 
 /// Tchebychev direction vectors `(delta-line, delta-column)`:
 ///
@@ -141,8 +136,14 @@ pub const ALL_DIRECTIONS: [Point; 8] = [
 
 impl Grid<char> {
     /// Read a grid from the given string, lines are separated by ascii whitespace.
+    ///
+    /// Empty input lines are ignored.
     pub fn new(input: &str) -> Self {
-        let lines = input.split_ascii_whitespace().collect::<Vec<_>>();
+        let lines = input
+            .split_ascii_whitespace()
+            // drop empty lines
+            .filter(|line| !line.is_empty())
+            .collect::<Vec<_>>();
         let height = lines.len();
         let width = lines.first().unwrap().len();
         let items = lines
@@ -298,11 +299,22 @@ impl<T> Grid<T> {
         self.valid_position(&point).then_some(point)
     }
 
-    pub fn for_each_neighbour<F>(&self, origin: &Point, mut f: F)
+    pub fn for_each_taxicab_neighbour<F>(&self, origin: &Point, mut f: F)
     where
         F: FnMut(Point, &T),
     {
-        for delta in &[Point::NORTH, Point::EAST, Point::SOUTH, Point::WEST] {
+        for delta in &TAXICAB_DIRECTIONS{
+            if let Some(pos) = self.step(origin, delta) {
+                f(pos, self.unchecked_get(&pos));
+            }
+        }
+    }
+
+    pub fn for_each_tchebychev_neighbour<F>(&self, origin: &Point, mut f: F)
+    where
+        F: FnMut(Point, &T),
+    {
+        for delta in &ALL_DIRECTIONS {
             if let Some(pos) = self.step(origin, delta) {
                 f(pos, self.unchecked_get(&pos));
             }
@@ -369,6 +381,7 @@ where
         Some(items)
     }
 
+    /// Create a new grid by mapping each cell of this grid with `f`.
     pub fn new_from<B, F>(&self, f: F) -> Grid<B>
     where
         F: Fn(&T) -> B,
