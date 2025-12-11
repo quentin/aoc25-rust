@@ -20,22 +20,9 @@ fn solve_day(day: u8) -> SolutionPair {
         7 => day07::solve(input),
         8 => day08::solve(input),
         9 => day09::solve(input),
-        //10 => day10::solve(input),
-        //11 => day11::solve(input),
+        10 => day10::solve(input),
+        11 => day11::solve(input),
         //12 => day12::solve(input),
-        //13 => day13::solve(input),
-        //14 => day14::solve(input),
-        //15 => day15::solve(input),
-        //16 => day16::solve(input),
-        //17 => day17::solve(input),
-        //18 => day18::solve(input),
-        //19 => day19::solve(input),
-        //20 => day20::solve(input),
-        //21 => day21::solve(input),
-        //22 => day22::solve(input),
-        //23 => day23::solve(input),
-        //24 => day24::solve(input),
-        //25 => day25::solve(input),
         _ => unimplemented!(),
     }
 }
@@ -127,6 +114,20 @@ mod tests {
             (
                 Solution::from(4748826374u64),
                 Solution::from(1554370486u64)
+            )
+        );
+        assert_eq!(
+            solve_day(10),
+            (
+                Solution::from(502u64),
+                Solution::from(21467u64)
+            )
+        );
+        assert_eq!(
+            solve_day(11),
+            (
+                Solution::from(566u64),
+                Solution::from(331837854931968u64)
             )
         );
     }
