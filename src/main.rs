@@ -22,7 +22,7 @@ fn solve_day(day: u8) -> SolutionPair {
         9 => day09::solve(input),
         10 => day10::solve(input),
         11 => day11::solve(input),
-        //12 => day12::solve(input),
+        12 => day12::solve(input),
         _ => unimplemented!(),
     }
 }
@@ -128,6 +128,14 @@ mod tests {
             (
                 Solution::from(566u64),
                 Solution::from(331837854931968u64)
+            )
+        );
+        assert_eq!(
+            solve_day(12),
+            (
+                Solution::from(472u64),
+                // no part 2
+                Solution::from(0u64)
             )
         );
     }

@@ -179,10 +179,6 @@ fn search_least_presses(equations: &Vec<Equation>, environ: &mut [Option<u64>]) 
         environ[var] = None;
         return local_least;
     } else {
-        if environ.iter().any(|maybe| maybe.is_none()) {
-            // unsat
-            return None;
-        }
         // no free variable, we are done
         let score = environ.iter().map(|maybe| maybe.unwrap()).sum();
         return Some(score);
@@ -210,6 +206,7 @@ fn solve_joltages(init: &InitProcedure) -> u64 {
             }
         });
     let best = search_least_presses(&equations, &mut vec![None; button_count]).unwrap();
+    eprintln!("{equations:?}\n=> {best}");
     best
 }
 
